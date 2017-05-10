@@ -1,0 +1,49 @@
+# Bootloader
+TARGET_BOOTLOADER_BOARD_NAME := mt6753
+TARGET_NO_BOOTLOADER := true
+
+# Platform
+TARGET_BOARD_PLATFORM := mt6753
+
+# Architecture
+TARGET_ARCH := arm64
+TARGET_ARCH_VARIANT := armv8-a
+TARGET_CPU_ABI := arm64-v8a
+TARGET_CPU_ABI2 := armeabi-v7a
+TARGET_CPU_VARIANT := generic
+TARGET_CPU_SMP := true
+
+TARGET_2ND_ARCH := arm
+TARGET_2ND_ARCH_VARIANT := armv7-a-neon
+TARGET_2ND_CPU_ABI := armeabi-v7a
+TARGET_2ND_CPU_ABI2 := armeabi
+TARGET_2ND_CPU_VARIANT :=generic
+
+TARGET_GLOBAL_CFLAGS += -mfpu=neon -mfloat-abi=softfp
+TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
+
+# Kernel
+BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2 androidusb.pid=0x05D8 androidboot.hardware=mt6753 androidboot.selinux=permissive
+BOARD_KERNEL_BASE := 0x40078000
+BOARD_KERNEL_PAGESIZE := 2048
+BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x03f88000 --tags_offset 0x0df88000
+TARGET_PREBUILT_KERNEL := device/htc/a51bml_tuhl/kernel
+
+TARGET_USERIMAGES_USE_EXT4 := true
+
+BOARD_BOOTIMAGE_PARTITION_SIZE := 33554432
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 33554432
+BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
+BOARD_HAS_LARGE_FILESYSTEM := true
+
+# TWRP Build Flags
+
+TW_THEME := portrait_hdpi
+TW_CUSTOM_CPU_TEMP_PATH := /sys/devices/virtual/thermal/thermal_zone1/temp
+TW_EXCLUDE_DEFAULT_USB_INIT := true
+TW_EXCLUDE_SUPERSU := true
+TW_HAS_DOWNLOAD_MODE := true
+TW_NO_EXFAT_FUSE := true
+TW_INCLUDE_CRYPTO := true
+BOARD_SUPPRESS_EMMC_WIPE := true
+TARGET_RECOVERY_DEVICE_MODULES := chargeled
